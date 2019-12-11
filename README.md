@@ -8,8 +8,8 @@ This library was invented to help me with versioning in [StrayexOS](https://gith
 
 # Usage of VerLib
 
-To use VerLib in your project download two files: "verlib.c" and "verlib.h".
-In your project's source file add preprocessor instruction `#include "verlib.h"`. After that library is ready to use!
+To use VerLib in your project download two files: "verlib.c" and "verlib.h". Add them to your project's files.
+In your project's source file add preprocessor's instruction `#include "verlib.h"`. After that library is ready to use!
 
 To check, what functions you have, open "verlib.h" to list them.
 
