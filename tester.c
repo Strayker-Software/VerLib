@@ -16,8 +16,8 @@ int main()
 	printf(" - VerLib Tester - \n");
 	
 	// Set version value for "1.0.0" Build 1 with SetVersionString function:
-	printf("Version '1.0.0'' Build 1 with SetVersionString function:\n");
-	char version[] = { '1', '.', '0', '.', '0', '.', '1' };
+	printf("Version '1.0.0' Build 1 with SetVersionString function:\n");
+	char version[] = { '2', '.', '1', '.', '3', '.', '4', '\0' };
 	SetVersionString(version);
 
 	ConsoleLogVersion();
