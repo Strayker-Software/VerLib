@@ -22,7 +22,7 @@ Version ver;
 // Set version data:
 
 // - by string,
-void SetVersionString(const char *version)
+void SetVersionString(char *version)
 {
 	// "version" string data is given in sequence: "Major.Minor.Release.Build\0",
 	// Example: 20.11.121.1014\0
@@ -36,39 +36,57 @@ void SetVersionString(const char *version)
 	int MinorLen = 0;
 	int ReleaseLen = 0;
 	int BuildLen = 0;
-	
 	int i = 0;
-	for(; version[i] != '.'; i++) // For Major,
+	
+	for(; version[i] != '.'; i++)
 	{
 		MajorChar[MajorLen] = version[i];
 		MajorLen++;
 	}
-	MajorChar[MajorLen] = '\0';
-	i++; // Skipping dot,
 	
-	for(; version[i] != '.'; i++); // For Minor,
+	//printf("i = %i\n", i);
+	i++;
+	
+	for(; version[i] != '.'; i++)
 	{
 		MinorChar[MinorLen] = version[i];
 		MinorLen++;
 	}
-	MinorChar[MinorLen] = '\0';
-	i++; // Skipping dot,
 	
-	for(; version[i] != '.'; i++); // For Release,
+	//printf("i = %i\n", i);
+	i++;
+	
+	for(; version[i] != '.'; i++)
 	{
 		ReleaseChar[ReleaseLen] = version[i];
 		ReleaseLen++;
 	}
-	ReleaseChar[ReleaseLen] = '\0';
-	i++; // Skipping dot,
 	
-	for(; version[i] != '\0'; i++); // For Build,
+	//printf("i = %i\n", i);
+	i++;
+	
+	for(; version[i] != '\0'; i++)
 	{
 		BuildChar[BuildLen] = version[i];
 		BuildLen++;
 	}
-	BuildChar[BuildLen] = '\0';
+	
+	//printf("i = %i\n", i);
 	i = 0;
+	
+	/*
+	printf("Major Length: %i\n", MajorLen);
+	printf("Minor Length: %i\n", MinorLen);
+	printf("Release Length: %i\n", ReleaseLen);
+	printf("Build Length: %i\n\n", BuildLen);
+	
+	printf("Major Value: %s\n", MajorChar);
+	printf("Minor Value: %s\n", MinorChar);
+	printf("Release Value: %s\n", ReleaseChar);
+	printf("Build Value: %s\n\n", BuildChar);
+	
+	printf("Given Version: %s\n\n", version);
+	*/
 	
 	ver.Major = atoi((const char *)MajorChar);
 	ver.Minor = atoi((const char *)MinorChar);
@@ -102,29 +120,49 @@ void SetVersionBuild(int value)
 int GetVersionFull()
 { // This function returns integer representing version of active library settings, eg. if version is set to "1.0.0 Build 10" the output will be 10010:
 	int len = 0;
-	len = len + CountDigits(ver.Build);
     len = len + CountDigits(ver.Major);
     len = len + CountDigits(ver.Minor);
 	len = len + CountDigits(ver.Release);
-	char version[len];
+	len = len + CountDigits(ver.Build);
 	
-	char buffer[CountDigits(ver.Major)];
-	itoa(ver.Major, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Major));
-	*buffer = malloc(CountDigits(ver.Minor) * sizeof(int));
+	/*
+	printf("Length of Major: %i\n", CountDigits(ver.Major));
+	printf("Length of Minor: %i\n", CountDigits(ver.Minor));
+	printf("Length of Release: %i\n", CountDigits(ver.Release));
+	printf("Length of Build: %i\n", CountDigits(ver.Build));
+	printf("Major Value: %i\n", ver.Major);
+	printf("Minor Value: %i\n", ver.Minor);
+	printf("Release Value: %i\n", ver.Release);
+	printf("Build Value: %i\n", ver.Build);
+	*/
+	char *versionPtr = calloc(len, sizeof(char));
+	char buffer[100];
+
+	//printf("Length of Major: %i\n", CountDigits(ver.Major));
+	/*
+	printf("Version length: %i\n", len);
+	printf("Version value: %s\n", versionPtr);
+	printf("Major digits: %i\n", CountDigits(ver.Major));
+	printf("Buffer value: %s\n", buffer);
+	*/
 	
-	itoa(ver.Minor, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Minor));
-	*buffer = malloc(CountDigits(ver.Release) * sizeof(int));
+	itoa(ver.Major, buffer, 10);
+	strcat(versionPtr, buffer);
+	memset(buffer, '0', 100);
 	
-	itoa(ver.Release, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Release));
-	*buffer = malloc(CountDigits(ver.Build) * sizeof(int));
+	itoa(ver.Minor, buffer, 10);
+	strcat(versionPtr, buffer);
+	memset(buffer, '0', 100);
 	
-	itoa(ver.Build, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Build));
+	itoa(ver.Release, buffer, 10);
+	strcat(versionPtr, buffer);
+	memset(buffer, '0', 100);
 	
-	int verint = atoi(version);
+	itoa(ver.Build, buffer, 10);
+	strcat(versionPtr, buffer);
+	memset(buffer, '0', 100);
+	
+	int verint = atoi(versionPtr);
 	
 	return verint;
 }
@@ -162,7 +200,7 @@ void ConsoleLogVersion()
 }
 
 // Return string same as console's:
-char* LogVersionString()
+char *LogVersionString()
 {
 	int len = 0;
 	len = len + CountDigits(ver.Build);
@@ -214,7 +252,7 @@ int CountDigits(int checking)
 {
 	int len = 0;
 	
-	for(; checking > 1; len++)
+	for(; checking >= 1; len++)
        checking = checking / 10;
        
     return len;

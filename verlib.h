@@ -20,7 +20,7 @@ typedef struct Version Version;
 
 // Set version for app, use on app's start:
 
-extern void SetVersionString(const char* version);
+extern void SetVersionString(char *version);
 extern void SetVersionMajor(int value);
 extern void SetVersionMinor(int value);
 extern void SetVersionRelease(int value);
@@ -48,7 +48,7 @@ extern void DecrementBuild();
 // Write version to console or return version's string representation:
 
 extern void ConsoleLogVersion();
-extern char* LogVersionString();
+extern char *LogVersionString();
 
 // Additional functions:
 extern bool CompareVersions(Version x, Version y); // checks, if two given versions are equal,
