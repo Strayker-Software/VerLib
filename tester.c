@@ -6,7 +6,6 @@
 */
 
 #include <stdio.h>
-#include <string.h>
 #include "verlib.h"
 
 int main()
@@ -155,11 +154,14 @@ int main()
 	printf("\n\n");
 	
 	// Log version number with LogVersionString function:
+	printf("Logging version number with LogVersionString function:\n");
 	
-	// TODO: This function has to be repaired!
+	printf("Version log: %s", LogVersionString());
+	
+	printf("\n\n");
 	
 	// Compare version "1.2.4 Build 122" with "2.0.5 Build 108". This comparison should throw false output:
-	printf("Comparing version '1.2.4 Build 122'' with '2.0.5 Build 108''. This comparison should throw false output:\n");
+	printf("Comparing version '1.2.4 Build 122' with '2.0.5 Build 108'. This comparison should throw false output:\n");
 	
 	Version version1;
 	version1.Major = 1;

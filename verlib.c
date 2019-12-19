@@ -79,12 +79,10 @@ void SetVersionString(char *version)
 	printf("Minor Length: %i\n", MinorLen);
 	printf("Release Length: %i\n", ReleaseLen);
 	printf("Build Length: %i\n\n", BuildLen);
-	
 	printf("Major Value: %s\n", MajorChar);
 	printf("Minor Value: %s\n", MinorChar);
 	printf("Release Value: %s\n", ReleaseChar);
 	printf("Build Value: %s\n\n", BuildChar);
-	
 	printf("Given Version: %s\n\n", version);
 	*/
 	
@@ -135,10 +133,10 @@ int GetVersionFull()
 	printf("Release Value: %i\n", ver.Release);
 	printf("Build Value: %i\n", ver.Build);
 	*/
+	
 	char *versionPtr = calloc(len, sizeof(char));
 	char buffer[100];
 
-	//printf("Length of Major: %i\n", CountDigits(ver.Major));
 	/*
 	printf("Version length: %i\n", len);
 	printf("Version value: %s\n", versionPtr);
@@ -203,35 +201,36 @@ void ConsoleLogVersion()
 char *LogVersionString()
 {
 	int len = 0;
-	len = len + CountDigits(ver.Build);
     len = len + CountDigits(ver.Major);
     len = len + CountDigits(ver.Minor);
 	len = len + CountDigits(ver.Release);
-	char version[len];
+	len = len + CountDigits(ver.Build);
 	
-	char buffer[CountDigits(ver.Major)];
-	itoa(ver.Major, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Major));
-	*buffer = malloc(CountDigits(ver.Minor) * sizeof(int));
+	char *versionPtr = calloc(len, sizeof(char));
+	char buffer[100];
 	
-	memset(version, '.', 1);
+	itoa(ver.Major, buffer, 10);
+	strcat(versionPtr, buffer);
+	strcat(versionPtr, ".");
 	
-	itoa(ver.Minor, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Minor));
-	*buffer = malloc(CountDigits(ver.Release) * sizeof(int));
+	itoa(ver.Minor, buffer, 10);
+	strcat(versionPtr, buffer);
+	strcat(versionPtr, ".");
 	
-	memset(version, '.', 1);
+	itoa(ver.Release, buffer, 10);
+	strcat(versionPtr, buffer);
+	strcat(versionPtr, ".");
 	
-	itoa(ver.Release, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Release));
-	*buffer = malloc(CountDigits(ver.Build) * sizeof(int));
+	itoa(ver.Build, buffer, 10);
+	strcat(versionPtr, buffer);
+	strcat(versionPtr, "\0");
 	
-	memset(version, ' ', 1);
+	/*
+	printf("Buffer value: %s\n", buffer);
+	printf("Version value: %s\n", versionPtr);
+	*/
 	
-	itoa(ver.Build, (const char *)buffer, 10);
-	memcpy(version, buffer, CountDigits(ver.Build));
-	
-	return version;
+	return versionPtr;
 }
 
 // Additional functions:
