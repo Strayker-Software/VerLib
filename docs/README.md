@@ -1,6 +1,6 @@
-# (Name here!) Docs
+# VerLib Docs
 
-Here is main documentation for (Name here!).
+Here is main documentation for VerLib.
 To find your language check names of folders to find your lang's symbol.
 
 # Contribution and licensing
